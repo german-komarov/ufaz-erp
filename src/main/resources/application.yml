@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ufaz_erp_1
+    username: germankomarov
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+logging:
+  level:
+    com:
+      zaxxer:
+        hikari:
+          pool:
+            HikariPool: ERROR
