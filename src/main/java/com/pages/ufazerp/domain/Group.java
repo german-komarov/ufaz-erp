@@ -41,6 +41,10 @@ public class Group {
     private Set<Subject> subjects = new HashSet<>();
 
     @ManyToMany
-    @JoinTable(name = "lessons_groups")
+    @JoinTable(
+            name = "lessons_groups",
+            joinColumns = @JoinColumn(name = "lesson", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "group1", nullable = false)
+    )
     private Set<Lesson> lessons = new HashSet<>();
 }

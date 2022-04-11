@@ -1,18 +1,25 @@
-package com.pages.ufazerp.domain;
+package com.pages.ufazerp.util.dto;
 
-import javax.persistence.*;
+import java.util.Date;
 
-@Entity
-@Table(name = "corpora")
-public class Corpus extends BaseModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class GetCorpusDto extends BaseDto {
     private Long id;
-
-    @Column(unique = true, nullable = false)
     private String name;
-
     private String address;
+
+    public GetCorpusDto(
+            Long id,
+            String name,
+            String address,
+            Date createdAt,
+            Date updatedAt
+    ) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.createdAt = createdAt;
+        this.updateAt = updatedAt;
+    }
 
     public Long getId() {
         return id;

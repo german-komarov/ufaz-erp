@@ -28,7 +28,11 @@ public class Lesson extends BaseModel {
     private Level level;
 
     @ManyToMany
-    @JoinTable(name = "teachers_lessons")
+    @JoinTable(
+            name = "teachers_lessons",
+            joinColumns = @JoinColumn(name = "teacher", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "lesson", nullable = false)
+    )
     private Set<Teacher> teachers = new HashSet<>();
 
     @ManyToMany
