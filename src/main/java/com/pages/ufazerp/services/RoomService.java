@@ -49,7 +49,7 @@ public class RoomService {
     public Room updateRoom(long roomId, UpdateRoomDto dto) throws NotFoundException, ValidationException {
         Room room = readById(roomId);
         if(dto.getNumber() != null) {
-            room.setNumber(room.getNumber());
+            room.setNumber(dto.getNumber());
         }
         if(dto.getCorpusId() != null) {
             try {
@@ -58,8 +58,10 @@ public class RoomService {
                 throw new ValidationException(e.getMessage());
             }
         }
-        if(roomRepository.findByRoomAndCorpus(dto.getNumber(), dto.getCorpusId()).isPresent()) {
-            throw new ValidationException(String.format("Room(number=%d; corpusId=%d already exists", dto.getNumber(), dto.getCorpusId()));
+        if(dto.getNumber()!=null && dto.getCorpusId()!=null) {
+            if(roomRepository.findByRoomAndCorpus(dto.getNumber(), dto.getCorpusId()).isPresent()) {
+                throw new ValidationException(String.format("room(number=%d; corpusId=%d) already exists", dto.getNumber(), dto.getCorpusId()));
+            }
         }
         return roomRepository.save(room);
     }
