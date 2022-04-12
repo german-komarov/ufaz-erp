@@ -1,6 +1,6 @@
-package com.pages.ufazerp.util.dto;
+package com.pages.ufazerp.util.dto.corpus;
 
-public class CreateCorpusDto {
+public class UpdateCorpusDto {
     private String name;
     private String address;
 

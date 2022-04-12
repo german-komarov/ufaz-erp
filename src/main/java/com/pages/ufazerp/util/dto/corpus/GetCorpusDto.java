@@ -1,4 +1,7 @@
-package com.pages.ufazerp.util.dto;
+package com.pages.ufazerp.util.dto.corpus;
+
+import com.pages.ufazerp.domain.Corpus;
+import com.pages.ufazerp.util.dto.BaseDto;
 
 import java.util.Date;
 
@@ -8,17 +11,13 @@ public class GetCorpusDto extends BaseDto {
     private String address;
 
     public GetCorpusDto(
-            Long id,
-            String name,
-            String address,
-            Date createdAt,
-            Date updatedAt
+            Corpus corpus
     ) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.createdAt = createdAt;
-        this.updateAt = updatedAt;
+        this.id = corpus.getId();
+        this.name = corpus.getName();
+        this.address = corpus.getAddress();
+        this.createdAt = corpus.getCreatedAt();
+        this.updateAt = corpus.getUpdatedAt();
     }
 
     public Long getId() {
