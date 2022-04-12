@@ -1,15 +1,28 @@
 package com.pages.ufazerp.util.dto.room;
 
 import com.pages.ufazerp.domain.Room;
+import com.pages.ufazerp.util.dto.BaseDto;
 import com.pages.ufazerp.util.dto.corpus.GetCorpusDto;
 
-public class GetRoomDto {
+public class GetRoomDto extends BaseDto {
+    private int id;
     private int number;
     private GetCorpusDto corpus;
 
     public GetRoomDto(Room room) {
+        this.id = Math.toIntExact(room.getId());
         this.number = room.getNumber();
         this.corpus = new GetCorpusDto(room.getCorpus());
+        this.createdAt = room.getCreatedAt();
+        this.updateAt = room.getUpdatedAt();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getNumber() {

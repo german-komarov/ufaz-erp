@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "rooms")
-public class Room {
+public class Room extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
