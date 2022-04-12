@@ -42,6 +42,7 @@ public class RoomService {
         if(roomRepository.findByRoomAndCorpus(dto.getNumber(), dto.getCorpusId()).isPresent()) {
             throw new ValidationException(String.format("Room(number=%d; corpusId=%dP already exists", dto.getNumber(), dto.getCorpusId()));
         }
+
         return roomRepository.save(room);
     }
 
