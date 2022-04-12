@@ -57,6 +57,9 @@ public class SubjectController {
             return ok(json("subject", new GetSubjectDto(subject)));
         } catch (ValidationException e) {
             return badRequest().body(message(e.getMessage()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return internalServerError().build();
         }
     }
 

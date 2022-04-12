@@ -40,13 +40,14 @@ public class SubjectService {
             throw new ValidationException("Term cannot be null");
         }
         if(subjectRepository.findByName(dto.getName()).isPresent()) {
-            throw new ValidationException("");
+            throw new ValidationException(String.format("subject(name=%s) already exists", dto.getName()));
         }
         Subject subject = new Subject();
         subject.setName(dto.getName());
         subject.setLevel(dto.getLevel());
         subject.setTerm(dto.getTerm());
         subject.setCredits(dto.getCredits());
+        subject.setTotalNumberOfLessons(dto.getTotalNumberOfLessons());
         return subjectRepository.save(subject);
     }
 
