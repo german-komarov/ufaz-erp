@@ -12,8 +12,6 @@ import java.util.Set;
 @Table(name = "teachers")
 public class Teacher extends User {
 
-    @ManyToOne(optional = false)
-    private Department department;
 
     @ManyToMany
     @JoinTable(

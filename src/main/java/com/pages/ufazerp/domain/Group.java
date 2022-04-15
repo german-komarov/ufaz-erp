@@ -21,9 +21,7 @@ public class Group {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Level level;
-
-    @ManyToOne
-    private Speciality speciality;
+    
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
