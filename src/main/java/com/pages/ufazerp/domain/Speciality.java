@@ -13,4 +13,7 @@ public class Speciality {
 
     @Column(unique = true, nullable = false)
     private String name;
+
+    @ManyToOne(optional = false)
+    private Department department;
 }

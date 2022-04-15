@@ -14,6 +14,8 @@ import static com.pages.ufazerp.util.tools.JsonUtils.message;
 import static org.springframework.http.ResponseEntity.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.stream.Collectors;
+
 import static com.pages.ufazerp.util.tools.JsonUtils.json;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -30,7 +32,7 @@ public class RoomController {
     @GetMapping
     public ResponseEntity<Object> getRooms() {
         try {
-            return ok(json("rooms", roomService.readAll()));
+            return ok(json("rooms", roomService.readAll().stream().map(GetRoomDto::new).collect(Collectors.toList())));
         } catch (Exception e) {
             e.printStackTrace();
             return internalServerError().build();

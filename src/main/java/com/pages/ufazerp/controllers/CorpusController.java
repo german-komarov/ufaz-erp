@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import static org.springframework.http.ResponseEntity.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/api/v1/corpora")
@@ -30,7 +32,7 @@ public class CorpusController {
     @GetMapping
     public ResponseEntity<Object> getCorpora() {
         try {
-            return ok(json("corpora", service.readAll()));
+            return ok(json("corpora", service.readAll().stream().map(GetCorpusDto::new).collect(Collectors.toList())));
         } catch (Exception e) {
             e.printStackTrace();
             return internalServerError().build();
