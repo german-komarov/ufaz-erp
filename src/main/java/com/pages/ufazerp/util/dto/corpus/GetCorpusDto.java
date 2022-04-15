@@ -3,8 +3,6 @@ package com.pages.ufazerp.util.dto.corpus;
 import com.pages.ufazerp.domain.Corpus;
 import com.pages.ufazerp.util.dto.BaseDto;
 
-import java.util.Date;
-
 public class GetCorpusDto extends BaseDto {
     private Long id;
     private String name;
@@ -17,7 +15,7 @@ public class GetCorpusDto extends BaseDto {
         this.name = corpus.getName();
         this.address = corpus.getAddress();
         this.createdAt = corpus.getCreatedAt();
-        this.updateAt = corpus.getUpdatedAt();
+        this.updatedAt = corpus.getUpdatedAt();
     }
 
     public Long getId() {

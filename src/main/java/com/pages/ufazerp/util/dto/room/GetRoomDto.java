@@ -14,7 +14,7 @@ public class GetRoomDto extends BaseDto {
         this.number = room.getNumber();
         this.corpus = new GetCorpusDto(room.getCorpus());
         this.createdAt = room.getCreatedAt();
-        this.updateAt = room.getUpdatedAt();
+        this.updatedAt = room.getUpdatedAt();
     }
 
     public int getId() {

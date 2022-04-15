@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "specialities")
-public class Speciality {
+public class Speciality extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,4 +16,29 @@ public class Speciality {
 
     @ManyToOne(optional = false)
     private Department department;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 }

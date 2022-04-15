@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class BaseDto {
     protected Date createdAt;
-    protected Date updateAt;
+    protected Date updatedAt;
 
     public Date getCreatedAt() {
         return createdAt;
@@ -14,11 +14,11 @@ public class BaseDto {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdateAt() {
-        return updateAt;
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
