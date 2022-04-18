@@ -25,9 +25,6 @@ public abstract class User extends BaseModel implements UserDetails {
     @Column(nullable = false)
     protected String password;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    protected Role role;
 
     @Column(nullable = false)
     protected String firstName;

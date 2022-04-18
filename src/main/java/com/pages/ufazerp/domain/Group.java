@@ -45,4 +45,69 @@ public class Group {
             inverseJoinColumns = @JoinColumn(name = "group1", nullable = false)
     )
     private Set<Lesson> lessons = new HashSet<>();
+
+
+    public boolean addSubject(Subject subject) {
+        return subjects.add(subject);
+    }
+
+    public boolean addSubjects(Set<Subject> inputSubjects) {
+        return this.subjects.addAll(inputSubjects);
+    }
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
+    public Subgroup getSubgroup() {
+        return subgroup;
+    }
+
+    public void setSubgroup(Subgroup subgroup) {
+        this.subgroup = subgroup;
+    }
+
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
+    }
+
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
+    public Set<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(Set<Lesson> lessons) {
+        this.lessons = lessons;
+    }
 }

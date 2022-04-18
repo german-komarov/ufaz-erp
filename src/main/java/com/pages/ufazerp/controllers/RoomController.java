@@ -20,7 +20,8 @@ import static com.pages.ufazerp.util.tools.JsonUtils.json;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
-@RequestMapping("/api/v1/rooms")
+@RequestMapping("/api/admin/rooms")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class RoomController {
 
     private final RoomService roomService;

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/api/v1/corpora")
+@RequestMapping("/api/admin/corpora")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CorpusController {
 

@@ -23,7 +23,8 @@ import static com.pages.ufazerp.util.tools.JsonUtils.json;
 
 
 @RestController
-@RequestMapping("/api/v1/subjects")
+@RequestMapping("/api/admin/subjects")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SubjectController {
     private final SubjectService subjectService;
 

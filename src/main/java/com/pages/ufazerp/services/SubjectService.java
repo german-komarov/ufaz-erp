@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -27,6 +28,10 @@ public class SubjectService {
     public Subject readById(Long id) throws NotFoundException {
         return subjectRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("There is no subject(id=%d)", id)));
+    }
+
+    public List<Subject> readAllById(List<Long> ids) {
+        return subjectRepository.findAllById(ids);
     }
 
     public Subject createSubject(CreateSubjectDto dto) throws ValidationException {

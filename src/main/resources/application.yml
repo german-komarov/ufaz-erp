@@ -15,3 +15,9 @@ logging:
         hikari:
           pool:
             HikariPool: ERROR
+
+
+jwt:
+  issuer: ufaz-erp
+  secret : SUPERSECRET
+  subject: ufaz-erp-subject

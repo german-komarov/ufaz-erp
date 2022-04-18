@@ -4,9 +4,7 @@ import com.pages.ufazerp.util.constants.Role;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "teachers")
@@ -23,6 +21,6 @@ public class Teacher extends User {
 
     @Override
     public Role getRole() {
-        return Role.TEACHER;
+        return Role.ROLE_TEACHER;
     }
 }
