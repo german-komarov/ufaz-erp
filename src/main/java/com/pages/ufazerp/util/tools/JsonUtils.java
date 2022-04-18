@@ -11,4 +11,8 @@ public class JsonUtils {
     public static Map<String, Object> message(Object value) {
         return json("message", value);
     }
+
+    public static Map<String, Object> message(Exception e) {
+        return message(e.getMessage());
+    }
 }

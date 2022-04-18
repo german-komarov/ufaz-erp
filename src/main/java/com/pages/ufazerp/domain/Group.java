@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "groups")
-public class Group {
+public class Group extends BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
