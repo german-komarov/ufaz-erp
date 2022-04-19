@@ -24,4 +24,28 @@ public class Student extends User {
     public Role getRole() {
         return Role.ROLE_STUDENT;
     }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public int getAdmissionYear() {
+        return admissionYear;
+    }
+
+    public void setAdmissionYear(int admissionYear) {
+        this.admissionYear = admissionYear;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
+    }
 }

@@ -17,14 +17,14 @@ import static java.util.Collections.singleton;
 public abstract class User extends BaseModel implements UserDetails {
 
     @Id
-    protected UUID userId = UUID.randomUUID();
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long userId;
 
     @Column(unique = true, nullable = false)
     protected String email;
 
     @Column(nullable = false)
     protected String password;
-
 
     @Column(nullable = false)
     protected String firstName;
@@ -69,11 +69,11 @@ public abstract class User extends BaseModel implements UserDetails {
         return true;
     }
 
-    public UUID getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(UUID userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
