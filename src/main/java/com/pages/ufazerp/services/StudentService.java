@@ -6,11 +6,11 @@ import com.pages.ufazerp.repositories.StudentRepository;
 import com.pages.ufazerp.util.dto.users.student.CreateStudentDto;
 import com.pages.ufazerp.util.exceptions.NotFoundException;
 import com.pages.ufazerp.util.exceptions.ValidationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -18,10 +18,12 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
     private final GroupService groupService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public StudentService(StudentRepository studentRepository, GroupService groupService) {
+    public StudentService(StudentRepository studentRepository, GroupService groupService, BCryptPasswordEncoder passwordEncoder) {
         this.studentRepository = studentRepository;
         this.groupService = groupService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Student readById(long id) throws NotFoundException {
@@ -30,7 +32,7 @@ public class StudentService {
                 .orElseThrow(() -> new NotFoundException(String.format("There is no user(id=%d)", id)));
     }
 
-    public List<Student> readByAll() {
+    public List<Student> readAll() {
         return studentRepository.findAll();
     }
 
@@ -61,7 +63,7 @@ public class StudentService {
         }
         Student student = new Student();
         student.setEmail(dto.getEmail());
-        student.setPassword(dto.getPassword());
+        student.setPassword(passwordEncoder.encode(dto.getPassword()));
         student.setFirstName(dto.getFirstName());
         student.setLastName(dto.getLastName());
         student.setAdmissionYear(dto.getAdmissionYear());
@@ -70,5 +72,11 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
+    public void deleteStudent(long id) {
+        if(!studentRepository.findById(id).isPresent()) {
+            return;
+        }
+        studentRepository.deleteById(id);
+    }
 
 }
