@@ -1,15 +1,12 @@
 package com.pages.ufazerp.util.dto.subject;
 
-import com.pages.ufazerp.domain.BaseModel;
 import com.pages.ufazerp.domain.Subject;
 import com.pages.ufazerp.util.constants.Level;
-import com.pages.ufazerp.util.constants.Term;
 
-public class GetSubjectDto extends BaseModel {
+public class GetSubjectDto  {
     private long id;
     private String name;
     private Level level;
-    private Term term;
     private int credits;
     private int totalNumberOfLessons;
 
@@ -17,11 +14,8 @@ public class GetSubjectDto extends BaseModel {
         this.id = subject.getId();
         this.name = subject.getName();
         this.level = subject.getLevel();
-        this.term = subject.getTerm();
         this.credits = subject.getCredits();
         this.totalNumberOfLessons = subject.getTotalNumberOfLessons();
-        this.createdAt = subject.getCreatedAt();
-        this.updatedAt = subject.getUpdatedAt();
     }
 
     public long getId() {
@@ -48,13 +42,6 @@ public class GetSubjectDto extends BaseModel {
         this.level = level;
     }
 
-    public Term getTerm() {
-        return term;
-    }
-
-    public void setTerm(Term term) {
-        this.term = term;
-    }
 
     public int getCredits() {
         return credits;

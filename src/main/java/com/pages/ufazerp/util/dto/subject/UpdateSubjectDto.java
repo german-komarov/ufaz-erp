@@ -1,13 +1,10 @@
 package com.pages.ufazerp.util.dto.subject;
 
 import com.pages.ufazerp.util.constants.Level;
-import com.pages.ufazerp.util.constants.Term;
-import com.pages.ufazerp.util.dto.BaseDto;
 
-public class UpdateSubjectDto extends BaseDto {
+public class UpdateSubjectDto {
     private String name;
     private Level level;
-    private Term term;
     private Integer credits;
     private Integer totalNumberOfLessons;
 
@@ -25,14 +22,6 @@ public class UpdateSubjectDto extends BaseDto {
 
     public void setLevel(Level level) {
         this.level = level;
-    }
-
-    public Term getTerm() {
-        return term;
-    }
-
-    public void setTerm(Term term) {
-        this.term = term;
     }
 
     public Integer getCredits() {

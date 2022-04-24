@@ -1,56 +1,97 @@
 package com.pages.ufazerp.domain;
 
-import com.pages.ufazerp.util.constants.Level;
-import com.pages.ufazerp.util.constants.Subgroup;
-import com.pages.ufazerp.util.constants.Term;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "lessons")
-public class Lesson extends BaseModel {
+public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long lessonId;
 
+    private int room;
+
     @ManyToOne
     private Subject subject;
 
+
     @ManyToOne
-    private Room room;
+    private Teacher teacher;
 
-    private boolean isMagisterial;
+    @ManyToOne
+    private Group group;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Level level;
+    @ManyToOne
+    private Week week;
 
-    @ManyToMany
-    @JoinTable(
-            name = "teachers_lessons",
-            joinColumns = @JoinColumn(name = "teacher", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "lesson", nullable = false)
-    )
-    private Set<Teacher> teachers = new HashSet<>();
-
-    @ManyToMany
-    @JoinTable(
-            name = "lessons_groups",
-            joinColumns = @JoinColumn(name = "lesson", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "group1", nullable = false)
-    )
-    private Set<Group> groups = new HashSet<>();
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Term term;
-    private int week;
     private int day;
+    private int period;
 
-    @ElementCollection
-    @CollectionTable(name = "lessons_periods", joinColumns = @JoinColumn(name = "lesson"))
-    @Column(name = "period")
-    private Set<Integer> periods;
+
+    public Long getLessonId() {
+        return lessonId;
+    }
+
+    public void setLessonId(Long lessonId) {
+        this.lessonId = lessonId;
+    }
+
+    public int getRoom() {
+        return room;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public void setRoom(int room) {
+        this.room = room;
+    }
+
+    public Week getWeek() {
+        return week;
+    }
+
+    public void setWeek(Week week) {
+        this.week = week;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
+    }
 }

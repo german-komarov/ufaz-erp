@@ -45,16 +45,9 @@ public class GroupService {
         if(dto.getLevel() == null) {
             throw new ValidationException("Level cannot be null");
         }
-        if(dto.getSubgroup() == null) {
-            throw new ValidationException("Subgroup cannot be null");
-        }
         Group group = new Group();
         group.setName(dto.getName());
-        group.setSubgroup(dto.getSubgroup());
         group.setLevel(dto.getLevel());
-        if(dto.getSubjects() != null && !dto.getSubjects().isEmpty()) {
-            group.addSubjects(new HashSet<>(subjectService.readAllById(new ArrayList<>(dto.getSubjects()))));
-        }
         return groupRepository.save(group);
     }
 
@@ -69,9 +62,6 @@ public class GroupService {
         }
         if(dto.getLevel()!=null) {
             group.setLevel(dto.getLevel());
-        }
-        if(dto.getSubgroup()!=null) {
-            group.setSubgroup(dto.getSubgroup());
         }
         return groupRepository.save(group);
     }

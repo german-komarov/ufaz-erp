@@ -1,14 +1,13 @@
 package com.pages.ufazerp.util.dto.group;
 
 import com.pages.ufazerp.util.constants.Level;
-import com.pages.ufazerp.util.constants.Subgroup;
 
 import java.util.Set;
 
 public class CreateGroupDto {
     private String name;
     private Level level;
-    private Subgroup subgroup;
+
     private Set<Long> subjects;
 
     public String getName() {
@@ -27,13 +26,6 @@ public class CreateGroupDto {
         this.level = level;
     }
 
-    public Subgroup getSubgroup() {
-        return subgroup;
-    }
-
-    public void setSubgroup(Subgroup subgroup) {
-        this.subgroup = subgroup;
-    }
 
     public Set<Long> getSubjects() {
         return subjects;

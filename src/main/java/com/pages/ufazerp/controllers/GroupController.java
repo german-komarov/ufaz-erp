@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/admin/groups")
+@RequestMapping("/api/groups")
 public class GroupController {
 
     private final GroupService groupService;
@@ -56,7 +56,7 @@ public class GroupController {
     @PostMapping
     public ResponseEntity<Object> postGroup(@RequestBody CreateGroupDto dto) {
         try {
-            return ok(json("group", groupService.createGroup(dto)));
+            return ok(json("group", new GetGroupDto(groupService.createGroup(dto))));
         } catch (ValidationException e) {
             return badRequest().body(message(e));
         } catch (Exception e) {

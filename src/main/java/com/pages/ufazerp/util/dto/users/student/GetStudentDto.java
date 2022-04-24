@@ -1,32 +1,23 @@
 package com.pages.ufazerp.util.dto.users.student;
 
-import com.pages.ufazerp.domain.BaseModel;
 import com.pages.ufazerp.domain.Student;
 import com.pages.ufazerp.util.constants.Level;
-import com.pages.ufazerp.util.dto.group.GetGroupDto;
+import com.pages.ufazerp.util.dto.users.GetUserDto;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
-public class GetStudentDto extends BaseModel {
-    private long id;
-    private String firstName;
-    private String lastName;
+public class GetStudentDto extends GetUserDto {
     public int admissionYear;
     private Level level;
     private Map<String, Object> group = new HashMap<>();
 
     public GetStudentDto(Student student) {
-        this.id = student.getUserId();
-        this.firstName = student.getFirstName();
-        this.lastName = student.getLastName();
+        super(student);
         this.admissionYear = student.getAdmissionYear();
         this.level = student.getLevel();
         group.put("id", student.getGroup().getGroupId());
         group.put("name", student.getGroup().getName());
-        this.createdAt = student.getCreatedAt();
-        this.updatedAt = student.getUpdatedAt();
     }
 
     public long getId() {

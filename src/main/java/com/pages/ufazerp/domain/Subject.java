@@ -1,13 +1,12 @@
 package com.pages.ufazerp.domain;
 
 import com.pages.ufazerp.util.constants.Level;
-import com.pages.ufazerp.util.constants.Term;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "subjects")
-public class Subject extends BaseModel {
+public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,10 +17,6 @@ public class Subject extends BaseModel {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Level level;
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Term term;
 
     private int credits;
     private int totalNumberOfLessons;
@@ -51,14 +46,6 @@ public class Subject extends BaseModel {
 
     public void setLevel(Level level) {
         this.level = level;
-    }
-
-    public Term getTerm() {
-        return term;
-    }
-
-    public void setTerm(Term term) {
-        this.term = term;
     }
 
     public int getCredits() {

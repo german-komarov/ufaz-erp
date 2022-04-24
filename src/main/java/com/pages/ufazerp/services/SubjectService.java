@@ -41,16 +41,12 @@ public class SubjectService {
         if(dto.getLevel()==null) {
             throw new ValidationException("Level cannot be null");
         }
-        if(dto.getTerm()==null) {
-            throw new ValidationException("Term cannot be null");
-        }
         if(subjectRepository.findByName(dto.getName()).isPresent()) {
             throw new ValidationException(String.format("subject(name=%s) already exists", dto.getName()));
         }
         Subject subject = new Subject();
         subject.setName(dto.getName());
         subject.setLevel(dto.getLevel());
-        subject.setTerm(dto.getTerm());
         subject.setCredits(dto.getCredits());
         subject.setTotalNumberOfLessons(dto.getTotalNumberOfLessons());
         return subjectRepository.save(subject);
@@ -67,9 +63,7 @@ public class SubjectService {
         if(dto.getLevel()!=null) {
             subject.setLevel(dto.getLevel());
         }
-        if(dto.getTerm()!=null) {
-            subject.setTerm(dto.getTerm());
-        }
+
         if(dto.getCredits()!=null) {
             subject.setCredits(dto.getCredits());
         }

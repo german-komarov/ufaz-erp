@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/api/admin/teachers")
+@RequestMapping("/api/teachers")
 public class TeacherController {
 
     private final TeacherService teacherService;
@@ -35,7 +35,7 @@ public class TeacherController {
     @GetMapping
     public ResponseEntity<Object> getAllTeachers() {
         try {
-            return ok(json("teaches", teacherService.readAll().stream().map(GetTeacherDto::new).collect(Collectors.toList())));
+            return ok(json("teachers", teacherService.readAll().stream().map(GetTeacherDto::new).collect(Collectors.toList())));
         } catch (Exception e) {
             e.printStackTrace();
             return internalServerError().build();

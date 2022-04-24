@@ -1,9 +1,8 @@
 package com.pages.ufazerp.util.dto.users;
 
-import com.pages.ufazerp.domain.BaseModel;
 import com.pages.ufazerp.domain.User;
 
-public class GetUserDto extends BaseModel {
+public class GetUserDto {
     protected long id;
     protected String email;
     protected String firstName;
@@ -14,8 +13,14 @@ public class GetUserDto extends BaseModel {
         this.email = user.getEmail();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
-        this.createdAt = user.getCreatedAt();
-        this.updatedAt = user.getUpdatedAt();
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getEmail() {

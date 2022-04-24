@@ -2,28 +2,24 @@ package com.pages.ufazerp.controllers;
 
 import com.pages.ufazerp.domain.Subject;
 import com.pages.ufazerp.services.SubjectService;
-import com.pages.ufazerp.util.dto.corpus.GetCorpusDto;
 import com.pages.ufazerp.util.dto.subject.CreateSubjectDto;
 import com.pages.ufazerp.util.dto.subject.GetSubjectDto;
 import com.pages.ufazerp.util.dto.subject.UpdateSubjectDto;
 import com.pages.ufazerp.util.exceptions.NotFoundException;
 import com.pages.ufazerp.util.exceptions.ValidationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import static com.pages.ufazerp.util.tools.JsonUtils.message;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.ResponseEntity.*;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.stream.Collectors;
 
 import static com.pages.ufazerp.util.tools.JsonUtils.json;
+import static com.pages.ufazerp.util.tools.JsonUtils.message;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.ResponseEntity.*;
 
 
 @RestController
-@RequestMapping("/api/admin/subjects")
+@RequestMapping("/api/subjects")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SubjectController {
     private final SubjectService subjectService;
