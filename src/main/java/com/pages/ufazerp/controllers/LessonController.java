@@ -28,7 +28,7 @@ public class LessonController {
         this.lessonService = lessonService;
     }
 
-    @PostMapping
+    @PostMapping("/admin")
     public ResponseEntity<Object> postLesson(@RequestBody CreateLessonDto dto) {
         try {
             return ok(json("lesson", new GetLessonDto(lessonService.createLesson(dto))));

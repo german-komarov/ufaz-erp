@@ -9,8 +9,6 @@ import com.pages.ufazerp.util.exceptions.ValidationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -18,11 +16,9 @@ import java.util.List;
 public class GroupService {
 
     private final GroupRepository groupRepository;
-    private final SubjectService subjectService;
 
-    public GroupService(GroupRepository groupRepository, SubjectService subjectService) {
+    public GroupService(GroupRepository groupRepository) {
         this.groupRepository = groupRepository;
-        this.subjectService = subjectService;
     }
 
     public Group readById(Long id) throws NotFoundException {
