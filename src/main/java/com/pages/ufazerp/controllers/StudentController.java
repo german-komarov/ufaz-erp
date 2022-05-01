@@ -1,6 +1,7 @@
 package com.pages.ufazerp.controllers;
 
 import com.pages.ufazerp.services.StudentService;
+import com.pages.ufazerp.util.dto.lesson.GetLessonDto;
 import com.pages.ufazerp.util.dto.users.student.CreateStudentDto;
 import com.pages.ufazerp.util.dto.users.student.GetStudentDto;
 import com.pages.ufazerp.util.exceptions.NotFoundException;
@@ -26,10 +27,21 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping
+    @GetMapping("/admin")
     public ResponseEntity<Object> getAllStudents() {
         try {
             return ok(json("students", studentService.readAll().stream().map(GetStudentDto::new).collect(Collectors.toList())));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return internalServerError().build();
+        }
+    }
+
+
+    @GetMapping("/absences")
+    public ResponseEntity<Object> getAbsences() {
+        try {
+            return ok(json("lessons", studentService.readAllAbsences().stream().map(GetLessonDto::new).collect(Collectors.toList())));
         } catch (Exception e) {
             e.printStackTrace();
             return internalServerError().build();

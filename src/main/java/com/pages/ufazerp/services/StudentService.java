@@ -1,15 +1,20 @@
 package com.pages.ufazerp.services;
 
 import com.pages.ufazerp.domain.Group;
+import com.pages.ufazerp.domain.Lesson;
 import com.pages.ufazerp.domain.Student;
+import com.pages.ufazerp.domain.User;
 import com.pages.ufazerp.repositories.StudentRepository;
 import com.pages.ufazerp.util.dto.users.student.CreateStudentDto;
 import com.pages.ufazerp.util.exceptions.NotFoundException;
 import com.pages.ufazerp.util.exceptions.ValidationException;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -19,11 +24,13 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final GroupService groupService;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final LessonService lessonService;
 
-    public StudentService(StudentRepository studentRepository, GroupService groupService, BCryptPasswordEncoder passwordEncoder) {
+    public StudentService(StudentRepository studentRepository, GroupService groupService, BCryptPasswordEncoder passwordEncoder, LessonService lessonService) {
         this.studentRepository = studentRepository;
         this.groupService = groupService;
         this.passwordEncoder = passwordEncoder;
+        this.lessonService = lessonService;
     }
 
     public Student readById(long id) throws NotFoundException {
@@ -34,6 +41,13 @@ public class StudentService {
 
     public List<Student> readAll() {
         return studentRepository.findAll();
+    }
+
+
+    public List<Lesson> readAllAbsences() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        User user = (User) securityContext.getAuthentication().getPrincipal();
+        return studentRepository.lessonAbsencesByStudentId(user.getUserId());
     }
 
     public Student createStudent(CreateStudentDto dto) throws ValidationException {

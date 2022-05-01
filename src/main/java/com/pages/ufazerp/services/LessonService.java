@@ -2,12 +2,15 @@ package com.pages.ufazerp.services;
 
 import com.pages.ufazerp.domain.*;
 import com.pages.ufazerp.repositories.LessonRepository;
+import com.pages.ufazerp.repositories.StudentRepository;
 import com.pages.ufazerp.repositories.WeekRepository;
 import com.pages.ufazerp.util.dto.lesson.CreateLessonDto;
 import com.pages.ufazerp.util.exceptions.NotFoundException;
 import com.pages.ufazerp.util.exceptions.ValidationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -18,25 +21,39 @@ public class LessonService {
     private final SubjectService subjectService;
     private final GroupService groupService;
     private final TeacherService teacherService;
+    private final StudentRepository studentRepository;
 
     public LessonService(
             LessonRepository lessonRepository,
             WeekRepository weekRepository,
             SubjectService subjectService,
             GroupService groupService,
-            TeacherService teacherService) {
+            TeacherService teacherService, StudentRepository studentRepository) {
         this.lessonRepository = lessonRepository;
         this.weekRepository = weekRepository;
         this.subjectService = subjectService;
         this.groupService = groupService;
         this.teacherService = teacherService;
+        this.studentRepository = studentRepository;
+    }
+
+    public Lesson readById(long id) throws NotFoundException {
+        return lessonRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("There is no lesson(id=%d)", id)));
+    }
+
+    public List<Student> readAllStudentsOfLesson(long lessonId) {
+        return lessonRepository.findAllStudentOfLesson(lessonId);
+    }
+
+    public List<Lesson> readLessonsByIds(List<Long> ids) {
+        return lessonRepository.findAllById(ids);
     }
 
     public Lesson createLesson(CreateLessonDto dto) throws ValidationException {
-        if(dto.getRoom()<=0) {
+        if (dto.getRoom() <= 0) {
             throw new ValidationException("Room cannot be equal or less than 0");
         }
-        if(dto.getDay()<1 || dto.getDay()>5) {
+        if (dto.getDay() < 1 || dto.getDay() > 5) {
             throw new ValidationException("Day must be of range [1,5]");
         }
         Subject subject;
@@ -53,18 +70,29 @@ public class LessonService {
         } catch (NotFoundException e) {
             throw new ValidationException(e.getMessage());
         }
-        if(lessonRepository.countLessonsByWeekDayPeriod(week.getNumber(), dto.getDay(), dto.getPeriod()) > 0) {
-            throw new ValidationException(String.format("Lesson at week=%d day=%d period=%d exists", week.getNumber(), dto.getDay(), dto.getPeriod()));
+        if (lessonRepository.countLessonsByWeekDayPeriodRoom(week.getNumber(), dto.getDay(), dto.getPeriod(), dto.getRoom()) > 0) {
+            throw new ValidationException(String.format("Lesson at week=%d day=%d period=%d room=%d exists", week.getNumber(), dto.getDay(), dto.getPeriod(), dto.getRoom()));
+        }
+        if(lessonRepository.countLessonsByWeekDayPeriodGroup(week.getNumber(), dto.getDay(), dto.getPeriod(), dto.getGroupId())>0) {
+            throw new ValidationException(String.format("Lesson at week=%d day=%d period=%d for group=%d exists", week.getNumber(), dto.getDay(), dto.getPeriod(), dto.getGroupId()));
         }
 
         Lesson lesson = new Lesson();
         lesson.setRoom(dto.getRoom());
         lesson.setSubject(subject);
         lesson.setDay(dto.getDay());
-        lesson.setGroup(group);
         lesson.setWeek(week);
         lesson.setPeriod(dto.getPeriod());
+        lesson.setDate(week.getStarts().plusDays((lesson.getDay() - 1)));
+        lesson.setGroup(group);
         lesson.setTeacher(teacher);
+        return lessonRepository.save(lesson);
+    }
+
+
+    public Lesson putAbsence(long id, List<Long> students) throws NotFoundException {
+        Lesson lesson = readById(id);
+        lesson.getAbsentStudents().addAll(studentRepository.findAllById(students));
         return lessonRepository.save(lesson);
     }
 

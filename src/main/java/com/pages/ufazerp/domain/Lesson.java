@@ -1,7 +1,10 @@
 package com.pages.ufazerp.domain;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -29,6 +32,15 @@ public class Lesson {
     private int day;
     private int period;
 
+    private LocalDate date;
+
+    @ManyToMany
+    @JoinTable(
+            name = "lessons__absent_students",
+            joinColumns = @JoinColumn(name = "lesson_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "student_id", nullable = false)
+    )
+    private List<Student> absentStudents = new ArrayList<>();
 
     public Long getLessonId() {
         return lessonId;
@@ -93,5 +105,21 @@ public class Lesson {
 
     public void setPeriod(int period) {
         this.period = period;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public List<Student> getAbsentStudents() {
+        return absentStudents;
+    }
+
+    public void setAbsentStudents(List<Student> absentStudents) {
+        this.absentStudents = absentStudents;
     }
 }

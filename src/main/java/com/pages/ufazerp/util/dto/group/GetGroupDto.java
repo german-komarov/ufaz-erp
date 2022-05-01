@@ -13,7 +13,6 @@ public class GetGroupDto  {
     private Long id;
     private String name;
     private Level level;
-    private List<Map<String, Object>> subjects = new ArrayList<>();
 
     public GetGroupDto(Group group) {
         this.id = group.getGroupId();
@@ -43,14 +42,5 @@ public class GetGroupDto  {
 
     public void setLevel(Level level) {
         this.level = level;
-    }
-
-
-    public List<Map<String, Object>> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<Map<String, Object>> subjects) {
-        this.subjects = subjects;
     }
 }

@@ -24,7 +24,7 @@ public class GroupService {
     public Group readById(Long id) throws NotFoundException {
         return groupRepository
                 .findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format("There is no room(id=%d)", id)));
+                .orElseThrow(() -> new NotFoundException(String.format("There is no group(id=%d)", id)));
     }
 
     public List<Group> readAll() {
