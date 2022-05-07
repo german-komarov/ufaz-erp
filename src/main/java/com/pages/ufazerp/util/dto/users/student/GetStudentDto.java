@@ -9,13 +9,11 @@ import java.util.Map;
 
 public class GetStudentDto extends GetUserDto {
     public int admissionYear;
-    private Level level;
     private Map<String, Object> group = new HashMap<>();
 
     public GetStudentDto(Student student) {
         super(student);
         this.admissionYear = student.getAdmissionYear();
-        this.level = student.getLevel();
         group.put("id", student.getGroup().getGroupId());
         group.put("name", student.getGroup().getName());
     }
@@ -52,13 +50,6 @@ public class GetStudentDto extends GetUserDto {
         this.admissionYear = admissionYear;
     }
 
-    public Level getLevel() {
-        return level;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
-    }
 
     public Map<String, Object> getGroup() {
         return group;

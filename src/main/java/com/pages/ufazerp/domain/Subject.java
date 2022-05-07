@@ -14,10 +14,6 @@ public class Subject {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Level level;
-
     private int credits;
     private int totalNumberOfLessons;
 
@@ -38,14 +34,6 @@ public class Subject {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Level getLevel() {
-        return level;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
     }
 
     public int getCredits() {

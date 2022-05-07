@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -33,10 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .authorizeHttpRequests()
-                .anyRequest().permitAll()
-//                .antMatchers("/api/auth/**").permitAll()
-//                .antMatchers("/api/**/admin/**").hasRole("ADMIN")
-//                .anyRequest().authenticated()
+                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/**/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
                 .and()
                 .userDetailsService(userDetailsService)
                 .exceptionHandling()
@@ -50,6 +50,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
     }
+
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**");
+    }
+
 
     @Bean
     @Override

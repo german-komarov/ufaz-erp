@@ -38,12 +38,8 @@ public class GroupService {
         if(groupRepository.findByName(dto.getName()).isPresent()) {
             throw new ValidationException(String.format("group(name=%s) already exists", dto.getName()));
         }
-        if(dto.getLevel() == null) {
-            throw new ValidationException("Level cannot be null");
-        }
         Group group = new Group();
         group.setName(dto.getName());
-        group.setLevel(dto.getLevel());
         return groupRepository.save(group);
     }
 
@@ -55,9 +51,6 @@ public class GroupService {
                 throw new ValidationException(String.format("group(name=%s) already exists", dto.getName()));
             }
             group.setName(dto.getName());
-        }
-        if(dto.getLevel()!=null) {
-            group.setLevel(dto.getLevel());
         }
         return groupRepository.save(group);
     }

@@ -17,8 +17,6 @@ public class Student extends User {
 
     private int admissionYear;
 
-    @Column(nullable = false)
-    private Level level;
 
     @Override
     public Role getRole() {
@@ -41,11 +39,4 @@ public class Student extends User {
         this.admissionYear = admissionYear;
     }
 
-    public Level getLevel() {
-        return level;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
-    }
 }

@@ -81,7 +81,6 @@ public class StudentService {
         student.setFirstName(dto.getFirstName());
         student.setLastName(dto.getLastName());
         student.setAdmissionYear(dto.getAdmissionYear());
-        student.setLevel(dto.getLevel());
         student.setGroup(group);
         return studentRepository.save(student);
     }

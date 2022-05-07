@@ -6,12 +6,15 @@ import com.pages.ufazerp.util.dto.users.student.CreateStudentDto;
 import com.pages.ufazerp.util.dto.users.student.GetStudentDto;
 import com.pages.ufazerp.util.exceptions.NotFoundException;
 import com.pages.ufazerp.util.exceptions.ValidationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.pages.ufazerp.util.tools.JsonUtils.*;
 
 import org.springframework.http.ResponseEntity;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.ResponseEntity.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/students")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class StudentController {
 
     private final StudentService studentService;
@@ -27,7 +31,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping("/admin")
+    @GetMapping
     public ResponseEntity<Object> getAllStudents() {
         try {
             return ok(json("students", studentService.readAll().stream().map(GetStudentDto::new).collect(Collectors.toList())));
@@ -38,15 +42,7 @@ public class StudentController {
     }
 
 
-    @GetMapping("/absences")
-    public ResponseEntity<Object> getAbsences() {
-        try {
-            return ok(json("lessons", studentService.readAllAbsences().stream().map(GetLessonDto::new).collect(Collectors.toList())));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return internalServerError().build();
-        }
-    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getStudentById(@PathVariable("id") long id) {
@@ -66,6 +62,28 @@ public class StudentController {
             return ok(json("student", new GetStudentDto(studentService.createStudent(dto))));
         } catch (ValidationException e) {
             return badRequest().body(message(e));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return internalServerError().build();
+        }
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteStudentById(@PathVariable("id") long id) {
+        try {
+            studentService.deleteStudent(id);
+            return ok().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return internalServerError().build();
+        }
+    }
+
+    @GetMapping("/absences")
+    public ResponseEntity<Object> getAbsences() {
+        try {
+            return ok(json("lessons", studentService.readAllAbsences().stream().map(GetLessonDto::new).collect(Collectors.toList())));
         } catch (Exception e) {
             e.printStackTrace();
             return internalServerError().build();

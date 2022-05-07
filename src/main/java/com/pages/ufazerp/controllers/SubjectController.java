@@ -66,8 +66,7 @@ public class SubjectController {
     @PutMapping("/{id}")
     public ResponseEntity<Object> putSubject(@PathVariable("id") long id, @RequestBody UpdateSubjectDto subjectDto) {
         try {
-            subjectService.updateSubject(id, subjectDto);
-            return ok().build();
+            return ok(json("subject", new GetSubjectDto(subjectService.updateSubject(id, subjectDto))));
         } catch (NotFoundException e) {
             return status(NOT_FOUND).body(message(e.getMessage()));
         } catch (ValidationException e) {

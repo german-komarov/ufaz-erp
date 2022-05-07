@@ -12,12 +12,10 @@ import java.util.stream.Collectors;
 public class GetGroupDto  {
     private Long id;
     private String name;
-    private Level level;
 
     public GetGroupDto(Group group) {
         this.id = group.getGroupId();
         this.name = group.getName();
-        this.level = group.getLevel();
     }
 
     public Long getId() {
@@ -36,11 +34,4 @@ public class GetGroupDto  {
         this.name = name;
     }
 
-    public Level getLevel() {
-        return level;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
-    }
 }

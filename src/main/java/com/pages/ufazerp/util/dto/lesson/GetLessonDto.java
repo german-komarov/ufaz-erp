@@ -2,7 +2,9 @@ package com.pages.ufazerp.util.dto.lesson;
 
 import com.pages.ufazerp.domain.Lesson;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +14,7 @@ public class GetLessonDto {
     private int week;
     private int day;
     private int period;
-    private String date;
+    private Date date;
     private Map<String, Object> subject = new HashMap<>();
     private Map<String, Object> teacher = new HashMap<>();
     private Map<String , Object> group = new HashMap<>();
@@ -24,7 +26,7 @@ public class GetLessonDto {
         this.week = lesson.getWeek().getNumber();
         this.day = lesson.getDay();
         this.period = lesson.getPeriod();
-        this.date = lesson.getDate().toString();
+        this.date = Date.from(Instant.from(lesson.getDate()));
         subject.put("id", lesson.getSubject().getId());
         subject.put("name", lesson.getSubject().getName());
         teacher.put("id", lesson.getTeacher().getUserId());
@@ -99,11 +101,11 @@ public class GetLessonDto {
         this.group = group;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

@@ -6,14 +6,12 @@ import com.pages.ufazerp.util.constants.Level;
 public class GetSubjectDto  {
     private long id;
     private String name;
-    private Level level;
     private int credits;
     private int totalNumberOfLessons;
 
     public GetSubjectDto(Subject subject) {
         this.id = subject.getId();
         this.name = subject.getName();
-        this.level = subject.getLevel();
         this.credits = subject.getCredits();
         this.totalNumberOfLessons = subject.getTotalNumberOfLessons();
     }
@@ -33,15 +31,6 @@ public class GetSubjectDto  {
     public void setName(String name) {
         this.name = name;
     }
-
-    public Level getLevel() {
-        return level;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
-    }
-
 
     public int getCredits() {
         return credits;

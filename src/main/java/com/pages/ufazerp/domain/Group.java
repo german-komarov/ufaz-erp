@@ -17,9 +17,6 @@ public class Group {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Level level;
 
     @OneToMany(mappedBy = "group")
     private Set<Student> students;
@@ -48,13 +45,6 @@ public class Group {
         this.name = name;
     }
 
-    public Level getLevel() {
-        return level;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
-    }
 
 
     public Set<Student> getStudents() {

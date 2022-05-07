@@ -1,14 +1,12 @@
 package com.pages.ufazerp.controllers;
 
-import com.pages.ufazerp.services.GroupService;
-import com.pages.ufazerp.util.dto.group.CreateGroupDto;
-import com.pages.ufazerp.util.dto.group.GetGroupDto;
-import com.pages.ufazerp.util.dto.group.UpdateGroupDto;
+import com.pages.ufazerp.services.AnnounceService;
+import com.pages.ufazerp.util.dto.announce.CreateAnnounceDto;
+import com.pages.ufazerp.util.dto.announce.GetAnnounceDto;
+import com.pages.ufazerp.util.dto.announce.UpdateAnnounceDto;
 import com.pages.ufazerp.util.exceptions.NotFoundException;
 import com.pages.ufazerp.util.exceptions.ValidationException;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,21 +23,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/groups")
+@RequestMapping("/api/announces")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class GroupController {
+public class AnnounceController {
 
-    private final GroupService groupService;
+    private final AnnounceService announceService;
 
-    public GroupController(GroupService groupService) {
-        this.groupService = groupService;
+    public AnnounceController(AnnounceService announceService) {
+        this.announceService = announceService;
     }
 
 
     @GetMapping
-    public ResponseEntity<Object> getAllGroups() {
+    public ResponseEntity<Object> getAllAnnounces() {
         try {
-            return ok(json("groups", groupService.readAll().stream().map(GetGroupDto::new).collect(Collectors.toList())));
+            return ok(json("announces", announceService.readAllAnnounces().stream().map(GetAnnounceDto::new)
+                    .collect(Collectors.toList())));
         } catch (Exception e) {
             e.printStackTrace();
             return internalServerError().build();
@@ -47,11 +46,11 @@ public class GroupController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getGroupById(@PathVariable("id") long id) {
+    public ResponseEntity<Object> getAnnounce(@PathVariable("id") long id) {
         try {
-            return ok(json("group", new GetGroupDto(groupService.readById(id))));
+            return ok(json("announce", new GetAnnounceDto(announceService.readById(id))));
         } catch (NotFoundException e) {
-            return status(NOT_FOUND).body(message(e));
+            return ResponseEntity.status(NOT_FOUND).body(message(e));
         } catch (Exception e) {
             e.printStackTrace();
             return internalServerError().build();
@@ -59,9 +58,9 @@ public class GroupController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> postGroup(@RequestBody CreateGroupDto dto) {
+    public ResponseEntity<Object> postAnnounce(@RequestBody CreateAnnounceDto dto) {
         try {
-            return ok(json("group", new GetGroupDto(groupService.createGroup(dto))));
+            return ok(json("announce", new GetAnnounceDto(announceService.createAnnounce(dto))));
         } catch (ValidationException e) {
             return badRequest().body(message(e));
         } catch (Exception e) {
@@ -70,30 +69,27 @@ public class GroupController {
         }
     }
 
-
     @PutMapping("/{id}")
-    public ResponseEntity<Object> putGroup(@PathVariable("id") long id, @RequestBody UpdateGroupDto dto) {
+    public ResponseEntity<Object> putAnnounce(@PathVariable("id") long id, @RequestBody UpdateAnnounceDto dto) {
         try {
-            return ok(json("announce", new GetGroupDto(groupService.updateGroup(id, dto))));
+            return ok(json("announce", new GetAnnounceDto(announceService.updateAnnounce(id, dto))));
         } catch (NotFoundException e) {
-            return status(NOT_FOUND).body(message(e));
-        } catch (ValidationException e) {
-            return badRequest().body(message(e.getMessage()));
+            return ResponseEntity.status(NOT_FOUND).body(message(e));
         } catch (Exception e) {
             e.printStackTrace();
             return internalServerError().build();
         }
     }
 
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteGroup(@PathVariable("id") long id) {
+    public ResponseEntity<Object> deleteAnnounce(@PathVariable("id") long id) {
         try {
-            groupService.deleteGroup(id);
+            announceService.deleteAnnounce(id);
             return ok().build();
         } catch (Exception e) {
             e.printStackTrace();
             return internalServerError().build();
         }
     }
-
 }

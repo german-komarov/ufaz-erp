@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/teachers")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TeacherController {
 
     private final TeacherService teacherService;

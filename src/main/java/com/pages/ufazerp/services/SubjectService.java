@@ -46,7 +46,6 @@ public class SubjectService {
         }
         Subject subject = new Subject();
         subject.setName(dto.getName());
-        subject.setLevel(dto.getLevel());
         subject.setCredits(dto.getCredits());
         subject.setTotalNumberOfLessons(dto.getTotalNumberOfLessons());
         return subjectRepository.save(subject);
@@ -59,9 +58,6 @@ public class SubjectService {
                 throw new ValidationException(String.format("subject(name=%s) already exists", dto.getName()));
             }
             subject.setName(dto.getName());
-        }
-        if(dto.getLevel()!=null) {
-            subject.setLevel(dto.getLevel());
         }
 
         if(dto.getCredits()!=null) {
