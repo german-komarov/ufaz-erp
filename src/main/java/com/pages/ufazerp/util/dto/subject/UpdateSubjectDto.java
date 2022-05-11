@@ -4,7 +4,6 @@ import com.pages.ufazerp.util.constants.Level;
 
 public class UpdateSubjectDto {
     private String name;
-    private Level level;
     private Integer credits;
     private Integer totalNumberOfLessons;
 
@@ -14,14 +13,6 @@ public class UpdateSubjectDto {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Level getLevel() {
-        return level;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
     }
 
     public Integer getCredits() {
