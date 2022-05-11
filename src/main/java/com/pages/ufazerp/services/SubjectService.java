@@ -38,9 +38,6 @@ public class SubjectService {
         if(dto.getName()==null) {
             throw new ValidationException("Name cannot be null");
         }
-        if(dto.getLevel()==null) {
-            throw new ValidationException("Level cannot be null");
-        }
         if(subjectRepository.findByName(dto.getName()).isPresent()) {
             throw new ValidationException(String.format("subject(name=%s) already exists", dto.getName()));
         }
