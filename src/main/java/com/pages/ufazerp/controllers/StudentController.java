@@ -6,19 +6,14 @@ import com.pages.ufazerp.util.dto.users.student.CreateStudentDto;
 import com.pages.ufazerp.util.dto.users.student.GetStudentDto;
 import com.pages.ufazerp.util.exceptions.NotFoundException;
 import com.pages.ufazerp.util.exceptions.ValidationException;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import static com.pages.ufazerp.util.tools.JsonUtils.*;
-
 import org.springframework.http.ResponseEntity;
-
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.ResponseEntity.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.stream.Collectors;
+
+import static com.pages.ufazerp.util.tools.JsonUtils.json;
+import static com.pages.ufazerp.util.tools.JsonUtils.message;
+import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @RequestMapping("/api/students")

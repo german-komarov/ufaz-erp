@@ -1,13 +1,6 @@
 package com.pages.ufazerp.util.dto.group;
 
 import com.pages.ufazerp.domain.Group;
-import com.pages.ufazerp.util.constants.Level;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class GetGroupDto  {
     private Long id;

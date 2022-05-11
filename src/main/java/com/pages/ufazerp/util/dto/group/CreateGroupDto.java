@@ -1,9 +1,5 @@
 package com.pages.ufazerp.util.dto.group;
 
-import com.pages.ufazerp.util.constants.Level;
-
-import java.util.Set;
-
 public class CreateGroupDto {
     private String name;
 

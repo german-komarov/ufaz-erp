@@ -1,7 +1,6 @@
 package com.pages.ufazerp.util.dto.subject;
 
 import com.pages.ufazerp.domain.Subject;
-import com.pages.ufazerp.util.constants.Level;
 
 public class GetSubjectDto  {
     private long id;

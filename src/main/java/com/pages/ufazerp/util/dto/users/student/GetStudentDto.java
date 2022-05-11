@@ -1,7 +1,6 @@
 package com.pages.ufazerp.util.dto.users.student;
 
 import com.pages.ufazerp.domain.Student;
-import com.pages.ufazerp.util.constants.Level;
 import com.pages.ufazerp.util.dto.users.GetUserDto;
 
 import java.util.HashMap;

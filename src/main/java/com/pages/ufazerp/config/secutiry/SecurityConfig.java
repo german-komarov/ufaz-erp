@@ -1,7 +1,7 @@
 package com.pages.ufazerp.config.secutiry;
 
-import com.pages.ufazerp.services.UserDetailsServiceImpl;
 import com.pages.ufazerp.config.secutiry.jwt.JWTFilter;
+import com.pages.ufazerp.services.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

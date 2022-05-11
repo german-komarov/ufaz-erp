@@ -1,7 +1,6 @@
 package com.pages.ufazerp.util.dto.users.teacher;
 
 import com.pages.ufazerp.domain.Teacher;
-import com.pages.ufazerp.domain.User;
 import com.pages.ufazerp.util.dto.users.GetUserDto;
 
 public class GetTeacherDto extends GetUserDto {

@@ -3,23 +3,19 @@ package com.pages.ufazerp.controllers;
 import com.pages.ufazerp.services.LessonService;
 import com.pages.ufazerp.util.dto.lesson.CreateLessonDto;
 import com.pages.ufazerp.util.dto.lesson.GetLessonDto;
+import com.pages.ufazerp.util.dto.lesson.PutAbsencesDto;
 import com.pages.ufazerp.util.dto.users.student.GetStudentDto;
 import com.pages.ufazerp.util.exceptions.ValidationException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.pages.ufazerp.util.tools.JsonUtils.json;
 import static com.pages.ufazerp.util.tools.JsonUtils.message;
 import static org.springframework.http.ResponseEntity.*;
-
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RestController
@@ -55,9 +51,9 @@ public class LessonController {
     }
 
     @PutMapping("{id}/absence")
-    public ResponseEntity<Object> putAbsence(@PathVariable("id") long id, @RequestBody List<Long> students) {
+    public ResponseEntity<Object> putAbsence(@PathVariable("id") long id, @RequestBody PutAbsencesDto dto) {
         try {
-            lessonService.putAbsence(id, students);
+            lessonService.putAbsence(id, dto.getStudents());
             return ok().build();
         } catch (Exception e) {
             return internalServerError().build();

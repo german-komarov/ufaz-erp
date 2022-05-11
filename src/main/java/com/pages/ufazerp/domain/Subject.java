@@ -1,7 +1,5 @@
 package com.pages.ufazerp.domain;
 
-import com.pages.ufazerp.util.constants.Level;
-
 import javax.persistence.*;
 
 @Entity

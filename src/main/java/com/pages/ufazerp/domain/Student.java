@@ -1,9 +1,7 @@
 package com.pages.ufazerp.domain;
 
-import com.pages.ufazerp.util.constants.Level;
 import com.pages.ufazerp.util.constants.Role;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;

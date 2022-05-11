@@ -1,7 +1,5 @@
 package com.pages.ufazerp.util.dto.subject;
 
-import com.pages.ufazerp.util.constants.Level;
-
 public class UpdateSubjectDto {
     private String name;
     private Integer credits;
