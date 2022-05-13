@@ -46,6 +46,7 @@ public class LessonController {
         } catch (ValidationException e) {
             return badRequest().body(message(e));
         } catch (Exception e) {
+            e.printStackTrace();
             return internalServerError().build();
         }
     }
@@ -56,6 +57,7 @@ public class LessonController {
             lessonService.putAbsence(id, dto.getStudents());
             return ok().build();
         } catch (Exception e) {
+            e.printStackTrace();
             return internalServerError().build();
         }
     }

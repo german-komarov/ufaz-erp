@@ -13,7 +13,6 @@ public class GetLessonDto {
     private int week;
     private int day;
     private int period;
-    private Date date;
     private Map<String, Object> subject = new HashMap<>();
     private Map<String, Object> teacher = new HashMap<>();
     private Map<String , Object> group = new HashMap<>();
@@ -25,7 +24,6 @@ public class GetLessonDto {
         this.week = lesson.getWeek().getNumber();
         this.day = lesson.getDay();
         this.period = lesson.getPeriod();
-        this.date = Date.from(Instant.from(lesson.getDate()));
         subject.put("id", lesson.getSubject().getId());
         subject.put("name", lesson.getSubject().getName());
         teacher.put("id", lesson.getTeacher().getUserId());
@@ -98,13 +96,5 @@ public class GetLessonDto {
 
     public void setGroup(Map<String, Object> group) {
         this.group = group;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 }
