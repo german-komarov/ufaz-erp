@@ -50,7 +50,7 @@ public class SubjectService {
     public Subject updateSubject(long id, UpdateSubjectDto dto) throws NotFoundException, ValidationException {
         Subject subject = readById(id);
         if(dto.getName()!=null) {
-            if(subjectRepository.findByName(dto.getName()).isPresent()) {
+            if(!subject.getName().equals(dto.getName()) && subjectRepository.findByName(dto.getName()).isPresent()) {
                 throw new ValidationException(String.format("subject(name=%s) already exists", dto.getName()));
             }
             subject.setName(dto.getName());
