@@ -3,6 +3,7 @@ package com.pages.ufazerp.services;
 import com.pages.ufazerp.domain.Teacher;
 import com.pages.ufazerp.repositories.TeacherRepository;
 import com.pages.ufazerp.util.dto.users.teacher.CreateTeacherDto;
+import com.pages.ufazerp.util.dto.users.teacher.UpdateTeacherDto;
 import com.pages.ufazerp.util.exceptions.NotFoundException;
 import com.pages.ufazerp.util.exceptions.ValidationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -51,6 +52,26 @@ public class TeacherService {
         teacher.setPassword(passwordEncoder.encode(dto.getPassword()));
         teacher.setFirstName(dto.getFirstName());
         teacher.setLastName(dto.getLastName());
+        return teacherRepository.save(teacher);
+    }
+
+    public Teacher updateTeacher(long id, UpdateTeacherDto dto) throws NotFoundException, ValidationException {
+        Teacher teacher = readById(id);
+        if(dto.getEmail()!=null) {
+            if(!teacher.getEmail().equals(dto.getEmail()) && teacherRepository.findByEmail(dto.getEmail()).isPresent()) {
+                throw new ValidationException(String.format("User(email=%s) already exists", dto.getEmail()));
+            }
+            teacher.setEmail(dto.getEmail());
+        }
+        if(dto.getPassword()!=null) {
+            teacher.setPassword(passwordEncoder.encode(dto.getPassword()));
+        }
+        if(dto.getFirstName()!=null) {
+            teacher.setFirstName(dto.getFirstName());
+        }
+        if(dto.getLastName()!=null) {
+            teacher.setLastName(dto.getLastName());
+        }
         return teacherRepository.save(teacher);
     }
 

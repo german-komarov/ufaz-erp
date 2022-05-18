@@ -3,6 +3,7 @@ package com.pages.ufazerp.controllers;
 import com.pages.ufazerp.services.TeacherService;
 import com.pages.ufazerp.util.dto.users.teacher.CreateTeacherDto;
 import com.pages.ufazerp.util.dto.users.teacher.GetTeacherDto;
+import com.pages.ufazerp.util.dto.users.teacher.UpdateTeacherDto;
 import com.pages.ufazerp.util.exceptions.NotFoundException;
 import com.pages.ufazerp.util.exceptions.ValidationException;
 import org.springframework.http.ResponseEntity;
@@ -56,6 +57,20 @@ public class TeacherController {
             return ok(json("teacher", new GetTeacherDto(teacherService.createTeacher(dto))));
         } catch (ValidationException e) {
             return badRequest().body(message(e));
+        } catch (Exception e) {
+            return internalServerError().build();
+        }
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> putTeacher(@PathVariable("id") long id, @RequestBody UpdateTeacherDto dto) {
+        try {
+            return ok(json("teacher", new GetTeacherDto(teacherService.updateTeacher(id, dto))));
+        } catch (ValidationException e) {
+            return badRequest().body(message(e));
+        } catch (NotFoundException e) {
+            return status(NOT_FOUND).body(message(e));
         } catch (Exception e) {
             return internalServerError().build();
         }
