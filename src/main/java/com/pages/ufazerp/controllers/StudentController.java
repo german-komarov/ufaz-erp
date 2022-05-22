@@ -4,8 +4,10 @@ import com.pages.ufazerp.services.StudentService;
 import com.pages.ufazerp.util.dto.lesson.GetLessonDto;
 import com.pages.ufazerp.util.dto.users.student.CreateStudentDto;
 import com.pages.ufazerp.util.dto.users.student.GetStudentDto;
+import com.pages.ufazerp.util.dto.users.student.UpdateStudentDto;
 import com.pages.ufazerp.util.exceptions.NotFoundException;
 import com.pages.ufazerp.util.exceptions.ValidationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,7 @@ import java.util.stream.Collectors;
 
 import static com.pages.ufazerp.util.tools.JsonUtils.json;
 import static com.pages.ufazerp.util.tools.JsonUtils.message;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.ResponseEntity.*;
 
 @RestController
@@ -37,16 +40,25 @@ public class StudentController {
     }
 
 
-
-
     @GetMapping("/{id}")
     public ResponseEntity<Object> getStudentById(@PathVariable("id") long id) {
         try {
             return ok(json("student", new GetStudentDto(studentService.readById(id))));
         } catch (NotFoundException e) {
-            return badRequest().body(message(e.getMessage()));
+            return badRequest().body(message(e));
         } catch (Exception e) {
             e.printStackTrace();
+            return internalServerError().build();
+        }
+    }
+
+    @GetMapping("/{id}/lessons")
+    public ResponseEntity<Object> getAllLessonsForStudent(@PathVariable("id") long id) {
+        try {
+            return ok(json("lessons", studentService.readAllLessonsByStudentId(id).stream().map(GetLessonDto::new).collect(Collectors.toList())));
+        } catch (NotFoundException e) {
+            return status(NOT_FOUND).body(message(e));
+        } catch (Exception e) {
             return internalServerError().build();
         }
     }
@@ -55,6 +67,21 @@ public class StudentController {
     public ResponseEntity<Object> postStudent(@RequestBody CreateStudentDto dto) {
         try {
             return ok(json("student", new GetStudentDto(studentService.createStudent(dto))));
+        } catch (ValidationException e) {
+            return badRequest().body(message(e));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return internalServerError().build();
+        }
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> putStudent(@PathVariable("id") long id, @RequestBody UpdateStudentDto dto) {
+        try {
+            return ok(json("student", studentService.updateStudent(id, dto)));
+        } catch (NotFoundException e) {
+            return status(NOT_FOUND).body(message(e));
         } catch (ValidationException e) {
             return badRequest().body(message(e));
         } catch (Exception e) {

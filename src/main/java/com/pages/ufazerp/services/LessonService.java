@@ -28,7 +28,7 @@ public class LessonService {
             WeekRepository weekRepository,
             SubjectService subjectService,
             GroupService groupService,
-            TeacherService teacherService, StudentRepository studentRepository) {
+            TeacherService teacherService, StudentService studentService, StudentRepository studentRepository) {
         this.lessonRepository = lessonRepository;
         this.weekRepository = weekRepository;
         this.subjectService = subjectService;
@@ -37,16 +37,16 @@ public class LessonService {
         this.studentRepository = studentRepository;
     }
 
+    public List<Lesson> readAllLessons() {
+        return lessonRepository.findAll();
+    }
+
     public Lesson readById(long id) throws NotFoundException {
         return lessonRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("There is no lesson(id=%d)", id)));
     }
 
     public List<Student> readAllStudentsOfLesson(long lessonId) {
         return lessonRepository.findAllStudentOfLesson(lessonId);
-    }
-
-    public List<Lesson> readLessonsByIds(List<Long> ids) {
-        return lessonRepository.findAllById(ids);
     }
 
     public Lesson createLesson(CreateLessonDto dto) throws ValidationException {

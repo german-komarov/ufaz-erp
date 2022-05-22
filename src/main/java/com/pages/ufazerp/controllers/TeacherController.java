@@ -1,6 +1,7 @@
 package com.pages.ufazerp.controllers;
 
 import com.pages.ufazerp.services.TeacherService;
+import com.pages.ufazerp.util.dto.lesson.GetLessonDto;
 import com.pages.ufazerp.util.dto.users.teacher.CreateTeacherDto;
 import com.pages.ufazerp.util.dto.users.teacher.GetTeacherDto;
 import com.pages.ufazerp.util.dto.users.teacher.UpdateTeacherDto;
@@ -42,6 +43,18 @@ public class TeacherController {
     public ResponseEntity<Object> getTeacher(@PathVariable("id") long id) {
         try {
             return ok(json("teacher", new GetTeacherDto(teacherService.readById(id))));
+        } catch (NotFoundException e) {
+            return status(NOT_FOUND).body(message(e));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return internalServerError().build();
+        }
+    }
+
+    @GetMapping("/{id}/lessons")
+    public ResponseEntity<Object> getAllLessonsForTeacher(@PathVariable("id") long id) {
+        try {
+            return ok(json("lessons", teacherService.readAllLessonsByTeacherId(id).stream().map(GetLessonDto::new).collect(Collectors.toList())));
         } catch (NotFoundException e) {
             return status(NOT_FOUND).body(message(e));
         } catch (Exception e) {

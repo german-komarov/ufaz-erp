@@ -1,5 +1,6 @@
 package com.pages.ufazerp.services;
 
+import com.pages.ufazerp.domain.Lesson;
 import com.pages.ufazerp.domain.Teacher;
 import com.pages.ufazerp.repositories.TeacherRepository;
 import com.pages.ufazerp.util.dto.users.teacher.CreateTeacherDto;
@@ -32,6 +33,11 @@ public class TeacherService {
         return teacherRepository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("There is no teacher(id=%d)", id)));
+    }
+
+    public List<Lesson> readAllLessonsByTeacherId(long id) throws NotFoundException {
+        Teacher teacher = readById(id);
+        return teacher.getLessons();
     }
 
     public Teacher createTeacher(CreateTeacherDto dto) throws ValidationException {

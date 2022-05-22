@@ -3,14 +3,13 @@ package com.pages.ufazerp.util.dto.users.student;
 import com.pages.ufazerp.util.dto.users.UpdateUserDto;
 
 public class UpdateStudentDto extends UpdateUserDto {
-    private long groupId;
+    private Long groupId;
 
-
-    public long getGroupId() {
+    public Long getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(long groupId) {
+    public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
 }

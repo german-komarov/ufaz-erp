@@ -2,6 +2,7 @@ package com.pages.ufazerp.domain;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,15 +18,10 @@ public class Group {
 
 
     @OneToMany(mappedBy = "group")
-    private Set<Student> students;
+    private List<Student> students;
 
-    @ManyToMany
-    @JoinTable(
-            name = "lessons_groups",
-            joinColumns = @JoinColumn(name = "lesson", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "group1", nullable = false)
-    )
-    private Set<Lesson> lessons = new HashSet<>();
+    @OneToMany(mappedBy = "group")
+    private List<Lesson> lessons;
 
     public Long getGroupId() {
         return groupId;
@@ -44,21 +40,19 @@ public class Group {
     }
 
 
-
-    public Set<Student> getStudents() {
+    public List<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(Set<Student> students) {
+    public void setStudents(List<Student> students) {
         this.students = students;
     }
 
-
-    public Set<Lesson> getLessons() {
+    public List<Lesson> getLessons() {
         return lessons;
     }
 
-    public void setLessons(Set<Lesson> lessons) {
+    public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
     }
 }

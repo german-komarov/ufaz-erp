@@ -11,16 +11,19 @@ import java.util.List;
 public class Teacher extends User {
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "teachers_lessons",
-            joinColumns = @JoinColumn(name = "teacher", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "lesson", nullable = false)
-    )
+    @OneToMany(mappedBy = "teacher")
     private List<Lesson> lessons = new ArrayList<>();
 
     @Override
     public Role getRole() {
         return Role.ROLE_TEACHER;
+    }
+
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
     }
 }
