@@ -11,21 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootTest
 class UfazErpApplicationTests {
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private BCryptPasswordEncoder encoder;
-
     @Test
     void contextLoads() {
-        Admin admin = new Admin();
-        admin.setPassword(encoder.encode("password"));
-        admin.setEmail("hello@example");
-        admin.setFirstName("hello");
-        admin.setLastName("hello");
-        userRepository.save(admin);
     }
 
 }
