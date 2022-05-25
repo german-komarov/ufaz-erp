@@ -7,7 +7,6 @@ import com.pages.ufazerp.util.dto.users.student.GetStudentDto;
 import com.pages.ufazerp.util.dto.users.student.UpdateStudentDto;
 import com.pages.ufazerp.util.exceptions.NotFoundException;
 import com.pages.ufazerp.util.exceptions.ValidationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

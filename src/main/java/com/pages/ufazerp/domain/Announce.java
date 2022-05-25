@@ -1,7 +1,7 @@
 package com.pages.ufazerp.domain;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "announces")
@@ -15,7 +15,7 @@ public class Announce {
     @Column(nullable = false)
     private String title;
     private String text;
-    private Date publishDate;
+    private LocalDateTime publishDate;
 
 
     public Long getId() {
@@ -50,11 +50,11 @@ public class Announce {
         this.text = text;
     }
 
-    public Date getPublishDate() {
+    public LocalDateTime getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(Date date) {
-        this.publishDate = date;
+    public void setPublishDate(LocalDateTime publishDate) {
+        this.publishDate = publishDate;
     }
 }

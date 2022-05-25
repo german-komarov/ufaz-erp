@@ -2,7 +2,9 @@ package com.pages.ufazerp.domain;
 
 import com.pages.ufazerp.util.constants.Role;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 

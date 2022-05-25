@@ -10,8 +10,8 @@ import com.pages.ufazerp.util.exceptions.ValidationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -55,7 +55,7 @@ public class AbsenceService {
             Absence absence = new Absence();
             absence.setLesson(lesson);
             absence.setStudent(student);
-            absence.setDate(new Date());
+            absence.setDate(LocalDate.now());
             absences.add(absence);
         });
         return absenceRepository.saveAll(absences);

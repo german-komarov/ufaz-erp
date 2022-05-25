@@ -4,7 +4,6 @@ import com.pages.ufazerp.domain.Absence;
 import com.pages.ufazerp.domain.Lesson;
 import com.pages.ufazerp.domain.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 

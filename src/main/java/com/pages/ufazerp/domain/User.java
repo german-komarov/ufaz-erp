@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 import static java.util.Collections.singleton;
 
@@ -29,6 +30,9 @@ public abstract class User implements UserDetails {
 
     @Column(nullable = false)
     protected String lastName;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    protected List<Announce> announces;
 
     public abstract Role getRole();
 

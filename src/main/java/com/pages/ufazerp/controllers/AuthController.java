@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.pages.ufazerp.util.tools.JsonUtils.json;
 import static com.pages.ufazerp.util.tools.JsonUtils.message;
 import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;

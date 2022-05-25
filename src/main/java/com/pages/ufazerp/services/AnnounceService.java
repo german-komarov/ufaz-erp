@@ -11,7 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -36,11 +36,10 @@ public class AnnounceService {
         if (dto.getTitle() == null || dto.getTitle().trim().isEmpty()) {
             throw new ValidationException("Title cannot be null, empty or blank");
         }
-
         Announce announce = new Announce();
         announce.setTitle(dto.getTitle());
         announce.setText(dto.getText());
-        announce.setPublishDate(new Date());
+        announce.setPublishDate(LocalDateTime.now());
         announce.setAuthor((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return announceRepository.save(announce);
     }

@@ -1,6 +1,7 @@
 package com.pages.ufazerp.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "subjects")
@@ -15,6 +16,8 @@ public class Subject {
     private int credits;
     private int totalNumberOfLessons;
 
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
+    private List<Lesson> lessons;
 
     // METHODS
 
@@ -48,5 +51,13 @@ public class Subject {
 
     public void setTotalNumberOfLessons(int totalNumberOfLessons) {
         this.totalNumberOfLessons = totalNumberOfLessons;
+    }
+
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
     }
 }

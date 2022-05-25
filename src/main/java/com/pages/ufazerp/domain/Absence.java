@@ -1,7 +1,7 @@
 package com.pages.ufazerp.domain;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "absences")
@@ -16,7 +16,7 @@ public class Absence {
     @ManyToOne
     private Lesson lesson;
 
-    private Date date;
+    private LocalDate date;
 
     public Long getId() {
         return id;
@@ -42,11 +42,11 @@ public class Absence {
         this.lesson = lesson;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }

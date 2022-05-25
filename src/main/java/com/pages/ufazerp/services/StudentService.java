@@ -1,13 +1,13 @@
 package com.pages.ufazerp.services;
 
-import com.pages.ufazerp.domain.*;
+import com.pages.ufazerp.domain.Group;
+import com.pages.ufazerp.domain.Lesson;
+import com.pages.ufazerp.domain.Student;
 import com.pages.ufazerp.repositories.StudentRepository;
 import com.pages.ufazerp.util.dto.users.student.CreateStudentDto;
 import com.pages.ufazerp.util.dto.users.student.UpdateStudentDto;
 import com.pages.ufazerp.util.exceptions.NotFoundException;
 import com.pages.ufazerp.util.exceptions.ValidationException;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

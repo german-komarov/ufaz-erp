@@ -1,7 +1,5 @@
 package com.pages.ufazerp.util.dto.users;
 
-import com.pages.ufazerp.domain.User;
-
 public class UpdateUserDto {
     protected String email;
     protected String password;

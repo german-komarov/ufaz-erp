@@ -2,7 +2,6 @@ package com.pages.ufazerp.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,6 +30,9 @@ public class Lesson {
     private int period;
 
     private LocalDate date;
+
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL)
+    private List<Absence> absences;
 
     public Long getLessonId() {
         return lessonId;
@@ -103,5 +105,13 @@ public class Lesson {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public List<Absence> getAbsences() {
+        return absences;
+    }
+
+    public void setAbsences(List<Absence> absences) {
+        this.absences = absences;
     }
 }

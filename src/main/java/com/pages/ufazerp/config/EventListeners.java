@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Component
 public class EventListeners {
@@ -137,28 +137,28 @@ public class EventListeners {
             announce1.setAuthor(teacher1);
             announce1.setTitle("Announce Title 1");
             announce1.setText("Announce Text 1");
-            announce1.setPublishDate(new Date(System.currentTimeMillis() + 1000*3600));
+            announce1.setPublishDate(LocalDateTime.now().plusDays(5));
             announceRepository.save(announce1);
 
             Announce announce2 = new Announce();
             announce2.setAuthor(teacher2);
             announce2.setTitle("Announce Title 2");
             announce2.setText("Announce Text 2");
-            announce2.setPublishDate(new Date(System.currentTimeMillis() + 1000*3600*8));
+            announce2.setPublishDate(LocalDateTime.now().plusDays(7));
             announceRepository.save(announce2);
 
             Announce announce3 = new Announce();
             announce3.setAuthor(student3);
             announce3.setTitle("Announce Title 3");
             announce3.setText("Announce Text 3");
-            announce3.setPublishDate(new Date(System.currentTimeMillis() + 1000*3600*29));
+            announce3.setPublishDate(LocalDateTime.now().plusDays(29));
             announceRepository.save(announce3);
 
             Announce announce4 = new Announce();
             announce4.setAuthor(student1);
             announce4.setTitle("Announce Title 4");
             announce4.setText("Announce Text 4");
-            announce4.setPublishDate(new Date(System.currentTimeMillis() + 1000*3600*5));
+            announce4.setPublishDate(LocalDateTime.now().plusDays(1));
             announceRepository.save(announce4);
 
 

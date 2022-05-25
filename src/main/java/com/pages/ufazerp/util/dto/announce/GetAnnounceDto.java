@@ -3,20 +3,18 @@ package com.pages.ufazerp.util.dto.announce;
 import com.pages.ufazerp.domain.Announce;
 import com.pages.ufazerp.util.dto.users.GetUserDto;
 
-import java.util.Date;
-
 public class GetAnnounceDto {
     private Long id;
     private String title;
     private String text;
-    private Date publishDate;
+    private String publishDate;
     private GetUserDto author;
 
     public GetAnnounceDto(Announce announce) {
         this.id = announce.getId();
         this.title = announce.getTitle();
         this.text = announce.getText();
-        this.publishDate = announce.getPublishDate();
+        this.publishDate = announce.getPublishDate().toString();
         this.author = new GetUserDto(announce.getAuthor());
     }
 
@@ -44,11 +42,11 @@ public class GetAnnounceDto {
         this.text = text;
     }
 
-    public Date getPublishDate() {
+    public String getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(Date publishDate) {
+    public void setPublishDate(String publishDate) {
         this.publishDate = publishDate;
     }
 
