@@ -42,13 +42,6 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-
-    public List<Lesson> readAllAbsences() {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        User user = (User) securityContext.getAuthentication().getPrincipal();
-        return studentRepository.lessonAbsencesByStudentId(user.getUserId());
-    }
-
     public List<Lesson> readAllLessonsByStudentId(long id) throws NotFoundException {
         Student student = readById(id);
         return student.getGroup().getLessons();

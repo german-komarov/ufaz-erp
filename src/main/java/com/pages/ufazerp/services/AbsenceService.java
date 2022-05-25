@@ -27,6 +27,15 @@ public class AbsenceService {
         this.studentService = studentService;
     }
 
+    public List<Absence> readAll() {
+        return absenceRepository.findAll();
+    }
+
+    public List<Absence> readAllByStudentId(long id) throws NotFoundException {
+        Student student = studentService.readById(id);
+        return absenceRepository.findAllByStudent(student);
+    }
+
     public List<Absence> readAllByLessonId(long id) throws NotFoundException {
         Lesson lesson = lessonService.readById(id);
         return absenceRepository.findAllByLesson(lesson);

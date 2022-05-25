@@ -101,14 +101,4 @@ public class StudentController {
             return internalServerError().build();
         }
     }
-
-    @GetMapping("/absences")
-    public ResponseEntity<Object> getAbsences() {
-        try {
-            return ok(json("lessons", studentService.readAllAbsences().stream().map(GetLessonDto::new).collect(Collectors.toList())));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return internalServerError().build();
-        }
-    }
 }

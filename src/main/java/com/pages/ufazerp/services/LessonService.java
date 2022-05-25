@@ -89,11 +89,4 @@ public class LessonService {
         return lessonRepository.save(lesson);
     }
 
-
-    public Lesson putAbsence(long id, List<Long> students) throws NotFoundException {
-        Lesson lesson = readById(id);
-        lesson.getAbsentStudents().addAll(studentRepository.findAllById(students));
-        return lessonRepository.save(lesson);
-    }
-
 }

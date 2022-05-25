@@ -32,14 +32,6 @@ public class Lesson {
 
     private LocalDate date;
 
-    @ManyToMany
-    @JoinTable(
-            name = "lessons__absent_students",
-            joinColumns = @JoinColumn(name = "lesson_id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "student_id", nullable = false)
-    )
-    private List<Student> absentStudents = new ArrayList<>();
-
     public Long getLessonId() {
         return lessonId;
     }
@@ -111,13 +103,5 @@ public class Lesson {
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    public List<Student> getAbsentStudents() {
-        return absentStudents;
-    }
-
-    public void setAbsentStudents(List<Student> absentStudents) {
-        this.absentStudents = absentStudents;
     }
 }

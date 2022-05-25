@@ -18,12 +18,35 @@ import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @RequestMapping("/api/absences")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AbsenceController {
 
     private final AbsenceService absenceService;
 
     public AbsenceController(AbsenceService absenceService) {
         this.absenceService = absenceService;
+    }
+
+    @GetMapping
+    public ResponseEntity<Object> getAllAbsences() {
+        try {
+            return ok(json("absences", absenceService.readAll().stream().map(GetAbsenceDto::new).collect(Collectors.toList())));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return internalServerError().build();
+        }
+    }
+
+    @GetMapping("/by/student/{id}")
+    public ResponseEntity<Object> getAllAbsencesByStudent(@PathVariable("id") long id) {
+        try {
+            return ok(json("absences", absenceService.readAllByStudentId(id).stream().map(GetAbsenceDto::new).collect(Collectors.toList())));
+        } catch (NotFoundException e) {
+            return status(NOT_FOUND).body(message(e));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return internalServerError().build();
+        }
     }
 
     @GetMapping("/lesson/{id}")
