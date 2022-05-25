@@ -52,6 +52,9 @@ public class AbsenceService {
         }
         List<Absence> absences = new ArrayList<>();
         students.forEach(student -> {
+            if(absenceRepository.findByLessonAndStudent(lesson, student).isPresent()) {
+                return;
+            }
             Absence absence = new Absence();
             absence.setLesson(lesson);
             absence.setStudent(student);
