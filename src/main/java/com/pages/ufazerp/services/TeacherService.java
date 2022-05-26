@@ -1,6 +1,7 @@
 package com.pages.ufazerp.services;
 
 import com.pages.ufazerp.domain.Lesson;
+import com.pages.ufazerp.domain.Subject;
 import com.pages.ufazerp.domain.Teacher;
 import com.pages.ufazerp.repositories.TeacherRepository;
 import com.pages.ufazerp.util.dto.users.teacher.CreateTeacherDto;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -38,6 +41,11 @@ public class TeacherService {
     public List<Lesson> readAllLessonsByTeacherId(long id) throws NotFoundException {
         Teacher teacher = readById(id);
         return teacher.getLessons();
+    }
+
+    public Set<Subject> readAllByTeacherId(long id) throws NotFoundException {
+        Teacher teacher = readById(id);
+        return teacher.getLessons().stream().map(Lesson::getSubject).collect(Collectors.toSet());
     }
 
     public Teacher createTeacher(CreateTeacherDto dto) throws ValidationException {
