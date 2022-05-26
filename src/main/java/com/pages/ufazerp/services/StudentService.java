@@ -3,6 +3,7 @@ package com.pages.ufazerp.services;
 import com.pages.ufazerp.domain.Group;
 import com.pages.ufazerp.domain.Lesson;
 import com.pages.ufazerp.domain.Student;
+import com.pages.ufazerp.domain.Subject;
 import com.pages.ufazerp.repositories.StudentRepository;
 import com.pages.ufazerp.util.dto.users.student.CreateStudentDto;
 import com.pages.ufazerp.util.dto.users.student.UpdateStudentDto;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -45,6 +48,12 @@ public class StudentService {
     public List<Lesson> readAllLessonsByStudentId(long id) throws NotFoundException {
         Student student = readById(id);
         return student.getGroup().getLessons();
+    }
+
+    public Set<Subject> readAllSubjects(long id) throws NotFoundException {
+        Student student = readById(id);
+        Group group = student.getGroup();
+        return group.getLessons().stream().map(Lesson::getSubject).collect(Collectors.toSet());
     }
 
     public List<Student> readAllStudentsById(Iterable<Long> ids) {

@@ -2,6 +2,7 @@ package com.pages.ufazerp.controllers;
 
 import com.pages.ufazerp.services.StudentService;
 import com.pages.ufazerp.util.dto.lesson.GetLessonDto;
+import com.pages.ufazerp.util.dto.subject.GetSubjectDto;
 import com.pages.ufazerp.util.dto.users.student.CreateStudentDto;
 import com.pages.ufazerp.util.dto.users.student.GetStudentDto;
 import com.pages.ufazerp.util.dto.users.student.UpdateStudentDto;
@@ -58,6 +59,18 @@ public class StudentController {
         } catch (NotFoundException e) {
             return status(NOT_FOUND).body(message(e));
         } catch (Exception e) {
+            return internalServerError().build();
+        }
+    }
+
+    @GetMapping("/{id}/subjects")
+    public ResponseEntity<Object> getAllSubjects(@PathVariable("id") long id) {
+        try {
+            return ok(json("subjects", studentService.readAllSubjects(id).stream().map(GetSubjectDto::new).collect(Collectors.toList())));
+        } catch (NotFoundException e) {
+            return status(NOT_FOUND).body(message(e));
+        } catch (Exception e) {
+            e.printStackTrace();
             return internalServerError().build();
         }
     }

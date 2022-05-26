@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/ufaz_erp_1
-    username: germankomarov
-    password: password
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/ufaz_erp_1}
+    username: ${SPRING_DATASOURCE_USERNAME:germankomarov}
+    password: ${SPRING_DATASOURCE_PASSWORD:password}
   jpa:
     hibernate:
       ddl-auto: update

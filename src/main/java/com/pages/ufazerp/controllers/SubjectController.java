@@ -41,7 +41,7 @@ public class SubjectController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> getById(@PathVariable("id") long id) {
         try {
-            return ok(json("subject", subjectService.readById(id)));
+            return ok(json("subject", new GetSubjectDto(subjectService.readById(id))));
         } catch (NotFoundException e) {
             return badRequest().body(message(e.getMessage()));
         } catch (Exception e) {
