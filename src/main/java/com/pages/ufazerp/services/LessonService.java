@@ -4,7 +4,7 @@ import com.pages.ufazerp.domain.*;
 import com.pages.ufazerp.repositories.LessonRepository;
 import com.pages.ufazerp.repositories.StudentRepository;
 import com.pages.ufazerp.repositories.WeekRepository;
-import com.pages.ufazerp.util.dto.lesson.CreateLessonDto;
+import com.pages.ufazerp.util.dto.lesson.CreateOrUpdateLessonDto;
 import com.pages.ufazerp.util.exceptions.NotFoundException;
 import com.pages.ufazerp.util.exceptions.ValidationException;
 import org.springframework.stereotype.Service;
@@ -49,7 +49,7 @@ public class LessonService {
         return lessonRepository.findAllStudentOfLesson(lessonId);
     }
 
-    public Lesson createLesson(CreateLessonDto dto) throws ValidationException {
+    public Lesson createLesson(CreateOrUpdateLessonDto dto) throws ValidationException {
         if (dto.getRoom() <= 0) {
             throw new ValidationException("Room cannot be equal or less than 0");
         }
@@ -73,7 +73,7 @@ public class LessonService {
         if (lessonRepository.countLessonsByWeekDayPeriodRoom(week.getNumber(), dto.getDay(), dto.getPeriod(), dto.getRoom()) > 0) {
             throw new ValidationException(String.format("Lesson at week=%d day=%d period=%d room=%d exists", week.getNumber(), dto.getDay(), dto.getPeriod(), dto.getRoom()));
         }
-        if(lessonRepository.countLessonsByWeekDayPeriodGroup(week.getNumber(), dto.getDay(), dto.getPeriod(), dto.getGroupId())>0) {
+        if (lessonRepository.countLessonsByWeekDayPeriodGroup(week.getNumber(), dto.getDay(), dto.getPeriod(), dto.getGroupId()) > 0) {
             throw new ValidationException(String.format("Lesson at week=%d day=%d period=%d for group=%d exists", week.getNumber(), dto.getDay(), dto.getPeriod(), dto.getGroupId()));
         }
 
@@ -87,6 +87,62 @@ public class LessonService {
         lesson.setGroup(group);
         lesson.setTeacher(teacher);
         return lessonRepository.save(lesson);
+    }
+
+    public Lesson update(long id, CreateOrUpdateLessonDto dto) throws NotFoundException, ValidationException {
+        Lesson lesson = readById(id);
+        if (dto.getRoom() <= 0) {
+            throw new ValidationException("Room cannot be equal or less than 0");
+        }
+        if (dto.getDay() < 1 || dto.getDay() > 5) {
+            throw new ValidationException("Day must be of range [1,5]");
+        }
+        Subject subject;
+        Group group;
+        Week week;
+        Teacher teacher;
+        try {
+            subject = subjectService.readById(dto.getSubjectId());
+            group = groupService.readById(dto.getGroupId());
+            teacher = teacherService.readById(dto.getTeacherId());
+            week = weekRepository
+                    .findByNumber(dto.getWeek())
+                    .orElseThrow(() -> new NotFoundException(String.format("There is no week(number=%d)", dto.getWeek())));
+        } catch (NotFoundException e) {
+            throw new ValidationException(e.getMessage());
+        }
+        if (
+                lesson.getDay() != dto.getDay() &&
+                        lesson.getWeek().getNumber() != dto.getWeek() &&
+                        lesson.getPeriod() != dto.getPeriod() &&
+                        lesson.getRoom() != dto.getRoom() &&
+                        lessonRepository.countLessonsByWeekDayPeriodRoom(week.getNumber(), dto.getDay(), dto.getPeriod(), dto.getRoom()) > 0) {
+            throw new ValidationException(String.format("Lesson at week=%d day=%d period=%d room=%d exists", week.getNumber(), dto.getDay(), dto.getPeriod(), dto.getRoom()));
+        }
+        if (lesson.getDay() != dto.getDay() &&
+                lesson.getWeek().getNumber() != dto.getWeek() &&
+                lesson.getPeriod() != dto.getPeriod() &&
+                lesson.getGroup().getGroupId() != dto.getGroupId()
+                && lessonRepository.countLessonsByWeekDayPeriodGroup(week.getNumber(), dto.getDay(), dto.getPeriod(), dto.getGroupId()) > 0) {
+            throw new ValidationException(String.format("Lesson at week=%d day=%d period=%d for group=%d exists", week.getNumber(), dto.getDay(), dto.getPeriod(), dto.getGroupId()));
+        }
+
+        lesson.setRoom(dto.getRoom());
+        lesson.setSubject(subject);
+        lesson.setDay(dto.getDay());
+        lesson.setWeek(week);
+        lesson.setPeriod(dto.getPeriod());
+        lesson.setDate(week.getStarts().plusDays((lesson.getDay() - 1)));
+        lesson.setGroup(group);
+        lesson.setTeacher(teacher);
+        return lessonRepository.save(lesson);
+    }
+
+    public void delete(long id) {
+        if (!lessonRepository.findById(id).isPresent()) {
+            return;
+        }
+        lessonRepository.deleteById(id);
     }
 
 }

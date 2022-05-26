@@ -1,6 +1,6 @@
 package com.pages.ufazerp.util.dto.lesson;
 
-public class CreateLessonDto {
+public class CreateOrUpdateLessonDto {
     private long subjectId;
     private int room;
     private int week;

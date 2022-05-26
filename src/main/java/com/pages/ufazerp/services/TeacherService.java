@@ -41,16 +41,16 @@ public class TeacherService {
     }
 
     public Teacher createTeacher(CreateTeacherDto dto) throws ValidationException {
-        if(dto.getEmail()==null) {
+        if (dto.getEmail() == null) {
             throw new ValidationException("Email cannot be null");
         }
-        if(teacherRepository.findByEmail(dto.getEmail()).isPresent()) {
+        if (teacherRepository.findByEmail(dto.getEmail()).isPresent()) {
             throw new ValidationException("Email already exists");
         }
-        if(dto.getFirstName()==null) {
+        if (dto.getFirstName() == null) {
             throw new ValidationException("First name cannot be null");
         }
-        if(dto.getLastName()==null) {
+        if (dto.getLastName() == null) {
             throw new ValidationException("Last name cannot be null");
         }
         Teacher teacher = new Teacher();
@@ -63,26 +63,28 @@ public class TeacherService {
 
     public Teacher updateTeacher(long id, UpdateTeacherDto dto) throws NotFoundException, ValidationException {
         Teacher teacher = readById(id);
-        if(dto.getEmail()!=null) {
-            if(!teacher.getEmail().equals(dto.getEmail()) && teacherRepository.findByEmail(dto.getEmail()).isPresent()) {
+        if (dto.getEmail() != null) {
+            if (!teacher.getEmail().equals(dto.getEmail()) && teacherRepository.findByEmail(dto.getEmail()).isPresent()) {
                 throw new ValidationException(String.format("User(email=%s) already exists", dto.getEmail()));
             }
             teacher.setEmail(dto.getEmail());
         }
-        if(dto.getPassword()!=null) {
-            teacher.setPassword(passwordEncoder.encode(dto.getPassword()));
+        if (dto.getPassword() != null) {
+            if (!dto.getPassword().isEmpty()) {
+                teacher.setPassword(passwordEncoder.encode(dto.getPassword()));
+            }
         }
-        if(dto.getFirstName()!=null) {
+        if (dto.getFirstName() != null) {
             teacher.setFirstName(dto.getFirstName());
         }
-        if(dto.getLastName()!=null) {
+        if (dto.getLastName() != null) {
             teacher.setLastName(dto.getLastName());
         }
         return teacherRepository.save(teacher);
     }
 
     public void deleteTeacher(long id) {
-        if(!teacherRepository.findById(id).isPresent()) {
+        if (!teacherRepository.findById(id).isPresent()) {
             return;
         }
         teacherRepository.deleteById(id);

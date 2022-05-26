@@ -61,19 +61,19 @@ public class StudentService {
     }
 
     public Student createStudent(CreateStudentDto dto) throws ValidationException {
-        if(dto.getEmail()==null) {
+        if (dto.getEmail() == null) {
             throw new ValidationException("Email cannot be null");
         }
-        if(studentRepository.findByEmail(dto.getEmail()).isPresent()) {
+        if (studentRepository.findByEmail(dto.getEmail()).isPresent()) {
             throw new ValidationException("Email already exists");
         }
-        if(dto.getFirstName()==null) {
+        if (dto.getFirstName() == null) {
             throw new ValidationException("First name cannot be null");
         }
-        if(dto.getLastName()==null) {
+        if (dto.getLastName() == null) {
             throw new ValidationException("Last name cannot be null");
         }
-        if(dto.getAdmissionYear()<2000) {
+        if (dto.getAdmissionYear() < 2000) {
             throw new ValidationException("Admission year cannot be earlier 2000");
         }
         Group group;
@@ -94,22 +94,24 @@ public class StudentService {
 
     public Student updateStudent(long id, UpdateStudentDto dto) throws NotFoundException, ValidationException {
         Student student = readById(id);
-        if(dto.getEmail()!=null) {
-            if(!student.getEmail().equals(dto.getEmail()) && studentRepository.findByEmail(dto.getEmail()).isPresent()) {
+        if (dto.getEmail() != null) {
+            if (!student.getEmail().equals(dto.getEmail()) && studentRepository.findByEmail(dto.getEmail()).isPresent()) {
                 throw new ValidationException(String.format("User(email=%s) already exists", dto.getEmail()));
             }
             student.setEmail(dto.getEmail());
         }
-        if(dto.getPassword()!=null) {
-            student.setPassword(passwordEncoder.encode(dto.getPassword()));
+        if (dto.getPassword() != null) {
+            if (!dto.getPassword().isEmpty()) {
+                student.setPassword(passwordEncoder.encode(dto.getPassword()));
+            }
         }
-        if(dto.getFirstName()!=null) {
+        if (dto.getFirstName() != null) {
             student.setFirstName(dto.getFirstName());
         }
-        if(dto.getLastName()!=null) {
+        if (dto.getLastName() != null) {
             student.setLastName(dto.getLastName());
         }
-        if(dto.getGroupId()!=null) {
+        if (dto.getGroupId() != null) {
             Group group;
             try {
                 group = groupService.readById(dto.getGroupId());
@@ -122,7 +124,7 @@ public class StudentService {
     }
 
     public void deleteStudent(long id) {
-        if(!studentRepository.findById(id).isPresent()) {
+        if (!studentRepository.findById(id).isPresent()) {
             return;
         }
         studentRepository.deleteById(id);

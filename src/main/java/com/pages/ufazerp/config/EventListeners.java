@@ -3,7 +3,7 @@ package com.pages.ufazerp.config;
 import com.pages.ufazerp.domain.*;
 import com.pages.ufazerp.repositories.*;
 import com.pages.ufazerp.services.LessonService;
-import com.pages.ufazerp.util.dto.lesson.CreateLessonDto;
+import com.pages.ufazerp.util.dto.lesson.CreateOrUpdateLessonDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -171,7 +171,7 @@ public class EventListeners {
             }
 
             try {
-                CreateLessonDto lesson1 = new CreateLessonDto();
+                CreateOrUpdateLessonDto lesson1 = new CreateOrUpdateLessonDto();
                 lesson1.setDay(3);
                 lesson1.setGroupId(group1.getGroupId());
                 lesson1.setPeriod(2);
@@ -181,7 +181,7 @@ public class EventListeners {
                 lesson1.setTeacherId(teacher1.getUserId());
                 lessonService.createLesson(lesson1);
 
-                CreateLessonDto lesson2 = new CreateLessonDto();
+                CreateOrUpdateLessonDto lesson2 = new CreateOrUpdateLessonDto();
                 lesson2.setDay(2);
                 lesson2.setGroupId(group1.getGroupId());
                 lesson2.setPeriod(5);
@@ -191,7 +191,7 @@ public class EventListeners {
                 lesson2.setTeacherId(teacher2.getUserId());
                 lessonService.createLesson(lesson2);
 
-                CreateLessonDto lesson3 = new CreateLessonDto();
+                CreateOrUpdateLessonDto lesson3 = new CreateOrUpdateLessonDto();
                 lesson3.setDay(2);
                 lesson3.setGroupId(group1.getGroupId());
                 lesson3.setPeriod(3);
